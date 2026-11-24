@@ -4,26 +4,30 @@ Det her er opslagsværket. Du behøver ikke læse det for at komme i gang. Din k
 
 ## Se hvad der blev sagt
 
+Bed agenten vise trafikken. Den kører denne kommando i kittets mappe:
+
 ```bash
 npm run trafik
 ```
 
 ```text
-11:28:05  KLIENT ->  server/discover
-11:28:05  SERVER <-  svar: det kan jeg  tools, resources
-11:28:05  KLIENT ->  subscriptions/listen  {"toolsListChanged":true,"resourcesListChanged":true}
-11:28:05  SERVER <-  notifications/subscriptions/acknowledged
-11:28:05  KLIENT ->  resources/list
-11:28:05  KLIENT ->  tools/list
-11:28:05  SERVER <-  svar: resources  data://forbrug/kolonner
-11:28:05  SERVER <-  svar: tools  forbrug_pr_kanal
-11:28:07  KLIENT ->  tools/call  forbrug_pr_kanal {"fra":"2026-10-01","til":"2026-10-31"}
-11:28:08  SERVER <-  svar: resultat  {"periode":{"fra":"2026-10-05","til":"2026-10-26"},"raekker":12, ...
+13.15.19  KLIENT ->  server/discover
+13.15.20  SERVER <-  svar: det kan jeg  tools, resources
+13.15.20  KLIENT ->  subscriptions/listen  {"toolsListChanged":true,"resourcesListChanged":true}
+13.15.20  SERVER <-  notifications/subscriptions/acknowledged
+13.15.20  KLIENT ->  server/discover
+13.15.20  SERVER <-  svar: det kan jeg  tools, resources
+13.15.20  KLIENT ->  resources/list
+13.15.20  KLIENT ->  tools/list
+13.15.20  SERVER <-  svar: resources  data://forbrug/kolonner
+13.15.20  SERVER <-  svar: tools  forbrug_pr_kanal
+13.15.23  KLIENT ->  tools/call  forbrug_pr_kanal {"fra":"2026-10-01","til":"2026-10-31"}
+13.15.23  SERVER <-  svar: resultat  {"periode":{"fra":"2026-10-05","til":"2026-10-26"},"raekker":12, ...
 ```
 
 Det er hele forløbet, når du forbinder en MCP-server:
 
-1. **`server/discover`**: klienten spørger hvem serveren er, og hvad den kan.
+1. **`server/discover`**: klienten spørger hvem serveren er, og hvad den kan. Claude Code spørger to gange.
 2. **`subscriptions/listen`**: klienten beder om besked, hvis listen af tools eller resources ændrer sig.
 3. **`tools/list`**: klienten henter alle tools med navn, beskrivelse og hvilke input de tager. Det er den liste, modellen vælger ud fra.
 4. **`tools/call`**: modellen har besluttet at bruge et tool og sender argumenterne. Læg mærke til at den selv har oversat "oktober 2026" til to datoer.
@@ -67,7 +71,7 @@ Normalt gør agenten det. Vil du selv, er det sådan her.
 }
 ```
 
-Find din egen sti til `node` med `which node`.
+Bed agenten finde stien til `node`, eller kør `which node`.
 
 ## Filerne
 
@@ -89,7 +93,7 @@ Find din egen sti til `node` med `which node`.
 
 | Det du ser | Årsag | Løsning |
 | --- | --- | --- |
-| Serveren dukker ikke op i klienten | Klienten læser sin opsætning ved opstart, eller serveren er ikke godkendt | Luk klienten helt og åbn den igen, og sig ja til serveren. Tjek med `claude mcp list`. |
+| Serveren dukker ikke op i klienten | Klienten læser sin opsætning ved opstart, eller serveren er ikke godkendt | Luk klienten helt og åbn den igen, og sig ja til serveren. Bed agenten tjekke med `claude mcp list`. |
 | `Cannot find module ... dist/index.js` | Koden er ikke bygget | Kør `npm run build` |
 | Klienten mister forbindelsen | Noget i serveren skriver med `console.log` | Brug `console.error` |
 | Docker: forbindelsen lukker med det samme | `-i` mangler | Tilføj `-i` |
@@ -104,6 +108,8 @@ Testet 24. november 2026 på en Mac med Apple-chip:
 
 - `npm install`, `npm run build` og `npm test` med Node 22.11
 - Claude Code 2.1.331 over stdio, med serveren hentet fra `.mcp.json`: toolet blev fundet og kaldt
+- Claude Code 2.1.330 inde i Claude-appen: serveren blev godkendt fra `.mcp.json` og brugt i en almindelig samtale
+- En agent, der kun fik repoets adresse, hentede kittet, installerede og testede det
 - Claude Desktop (protokol 2025-11-25): en agent tilføjede serveren til appens opsætningsfil, og toolet blev kaldt i en almindelig chat
 - Docker 28.3: build, kørsel med `-i`, kun læseadgang til `data`, ingen netadgang, bruger `node` og ikke root
 

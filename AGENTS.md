@@ -1,8 +1,15 @@
 # Instruktioner til kodeagenten
 
-Dette repo er et starter kit til en MCP-server. Personen du arbejder med er typisk marketingperson, ikke udvikler. Din opgave er at skifte eksempel-toolet i `src/server.ts` ud med tools til det værktøj, der står i `BRIEF.md`.
+Dette repo er et starter kit til en MCP-server. Personen du arbejder med er typisk marketingperson, ikke udvikler. Der er to opgaver, og personen bestemmer hvilken:
 
-Forklar undervejs hvad du gør, i almindeligt sprog. Personen skal kunne forstå og kontrollere resultatet.
+- **Sætte kittet op**, så de kan se eksemplet virke. Se næste afsnit. Når det er gjort, stopper du. Gå ikke i gang med at bygge noget.
+- **Bygge deres egen server** ud fra `BRIEF.md`. Se "Før du skriver kode" og resten af filen.
+
+Sådan arbejder du med personen:
+
+- Svar på det sprog, personen skriver på. Filerne er på dansk.
+- Forklar hvad du gør, i almindeligt sprog. Personen skal kunne forstå og kontrollere resultatet.
+- Kør selv kommandoerne. Bed ikke personen åbne en terminal eller køre noget, hvis du kan gøre det.
 
 ## Når personen beder dig sætte kittet op
 
@@ -11,9 +18,17 @@ Personen skal ikke selv rette i opsætningsfiler. Det gør du.
 1. **Er kittet ikke hentet endnu?** Spørg hvor det skal ligge, foreslå `~/mcp-starter-kit`, og hent det med `git clone https://github.com/somejuandk/mcp-starter-kit.git`. Har personen ikke git, så hent ZIP-filen fra GitHub og pak den ud.
 2. **Tjek Node** med `node -v`. Kittet kræver 20.12 eller nyere. Mangler den, så forklar hvordan den hentes fra nodejs.org, og installér ikke noget på maskinen uden et ja.
 3. Kør `npm install` og `npm test` i mappen. Fortæl kort hvad der skete.
-4. **Claude Code:** serveren står allerede i `.mcp.json` i projektmappen. Den bliver kun læst, når Claude Code er åbnet i kittets mappe. Sig til personen at åbne Claude Code i den mappe og sige ja, når den spørger om serveren `starter-kit`. Skal de vælge mappen i et vindue, kan de trykke Cmd+Shift+G på en Mac og indsætte stien.
-5. **Andre klienter** (Claude Desktop, Cursor, Codex): find klientens opsætningsfil, og tilføj serveren med fulde stier til både `node` (`which node`) og `tools/aflyt.mjs`. Vis ændringen og få et ja, før du gemmer. Tag en sikkerhedskopi af filen først. Rør ikke de servere der står i filen i forvejen, og vis aldrig deres nøgler i chatten. Sig hvordan klienten genstartes, og at en genstart kan lukke den samtale, I er i.
-6. Giv personen et spørgsmål at prøve. Vis bagefter trafikken med `npm run trafik`, og forklar de fire trin: forbind, liste, valg og kald.
+4. **Spørg hvor personen vil stille sine spørgsmål:** i Claude Code, i den almindelige chat i Claude-appen, i Cursor eller i Codex. Gæt ikke.
+5. **Claude Code:** serveren står allerede i `.mcp.json` i kittets mappe, så du skal ikke forbinde noget. Men filen bliver kun læst af en Claude Code, der er åbnet i den mappe. Den samtale, du er i nu, kan derfor ikke bruge serveren, medmindre den blev startet der.
+6. **Andre klienter** (Claude-appens chat, Cursor, Codex): find klientens opsætningsfil, og tilføj serveren med fulde stier til både `node` (`which node`) og `tools/aflyt.mjs`. Vis ændringen og få et ja, før du gemmer. Tag en sikkerhedskopi af filen først. Rør ikke de servere der står i filen i forvejen, og vis aldrig deres nøgler i chatten.
+7. **Slut med en besked, der siger præcis hvad personen skal gøre nu.** Du kan ikke selv vise dem serveren virke, for det sker i en ny samtale. Beskeden skal have:
+   - hvad du har gjort, og at du ikke har ændret andet
+   - den fulde sti til kittets mappe
+   - **Claude Code:** start en ny samtale i kittets mappe. Skal mappen vælges i et vindue, så tryk Cmd+Shift+G på en Mac og indsæt stien. Sig ja til at stole på mappen, og ja til serveren `starter-kit`.
+   - **Claude-appens chat:** luk appen helt med Cmd+Q og åbn den igen. Det lukker også den samtale, I er i. Serveren står bagefter under Plugins som "Local MCP server".
+   - to spørgsmål at stille i den nye samtale: "Hvad brugte vi på Meta i oktober 2026, og hvad kostede en konvertering?" og "Vis mig, hvad der blev sagt mellem dig og serveren."
+
+Beder personen dig vise, hvad der blev sagt, så kør `npm run trafik` i kittets mappe, og forklar de fire trin: forbind, liste, valg og kald.
 
 Skal serveren køre i Docker, så byg imaget og skift kommandoen i `.mcp.json` (eller klientens fil) til `docker run -i --rm ...` som i `TEKNIK.md`. Brug fulde stier i `-v`, hvis klienten ikke starter serveren fra projektmappen.
 

@@ -4,7 +4,7 @@ Gå listen igennem, når agenten siger den er færdig. Du kan bede agenten vise 
 
 ## Hvad kan den?
 
-- [ ] **Jeg har læst listen af tools.** Kør `npm run trafik` og find linjen `svar: tools`. Er der et tool du ikke bad om, så spørg hvorfor.
+- [ ] **Jeg har læst listen af tools.** Bed agenten vise trafikken, og find linjen `svar: tools`. Er der et tool du ikke bad om, så spørg hvorfor.
 - [ ] **Ingen tools kan ændre noget.** Ingen navne som opret, ret, slet, send eller publicér.
 - [ ] **Hver beskrivelse siger hvornår toolet skal bruges.** Læs dem højt. Ville en ny kollega forstå hvornår det giver mening?
 

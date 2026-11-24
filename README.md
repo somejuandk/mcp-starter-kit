@@ -8,15 +8,15 @@ Kittet er til dig, der bruger Claude, Cursor eller ChatGPT i dit arbejde og mang
 
 ## Kom i gang
 
-Send den her besked til din kodeagent. Det kan være Claude Code, Codex eller Cursor.
+Send den her besked til din kodeagent, fx Claude Code.
 
 ```text
 Sæt https://github.com/somejuandk/mcp-starter-kit op for mig.
 ```
 
-Agenten henter kittet, installerer det, kører en test og forbinder serveren til din klient. Den viser dig hver ændring på din maskine, før den laver den. Du skal ikke selv rette i nogen filer.
+Agenten henter kittet, installerer det og kører en test. Den spørger, hvor du vil bruge serveren, og viser dig hver ændring på din maskine, før den laver den. Du skal ikke selv rette i nogen filer.
 
-Så spørg:
+Til sidst beder den dig starte en ny samtale: enten en ny Claude Code i kittets mappe, eller Claude-appen efter en genstart. Det er der, serveren er forbundet. Så spørg:
 
 - *"Hvad brugte vi på Meta i oktober 2026, og hvad kostede en konvertering?"*
 - *"Hvilken kanal har den laveste pris pr. konvertering?"*
@@ -59,7 +59,7 @@ Mangler du en idé, så se hvad andre har bygget til deres egen hverdag: [handle
 
 ## Det skal du have
 
-- En kodeagent: Claude Code, Codex eller Cursor. Claude Code findes også inde i Claude-appen, så du behøver ikke en terminal.
+- En kodeagent. Kittet er testet med Claude Code, som også findes inde i Claude-appen, så du behøver ikke en terminal. Codex og Cursor bør kunne det samme, men er ikke prøvet.
 - [Node.js](https://nodejs.org) 20.12 eller nyere. Agenten tjekker det for dig.
 - Docker Desktop, hvis du vil køre serveren i en container. Det er valgfrit.
 

@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/server';
 import * as z from 'zod/v4';
 
@@ -11,7 +12,9 @@ import * as z from 'zod/v4';
 // ---------------------------------------------------------------------------
 
 // Serveren må kun læse i denne ene mappe. Modellen kan ikke vælge en anden sti.
-const DATA_MAPPE = resolve(process.env.DATA_MAPPE ?? 'data');
+// Stien regnes fra projektmappen, så det er ligegyldigt hvor klienten starter serveren fra.
+const PROJEKT_MAPPE = join(dirname(fileURLToPath(import.meta.url)), '..');
+const DATA_MAPPE = resolve(PROJEKT_MAPPE, process.env.DATA_MAPPE ?? 'data');
 const FORBRUG_FIL = join(DATA_MAPPE, 'forbrug.csv');
 
 type Raekke = { dato: string; kanal: string; forbrug: number; konverteringer: number };
