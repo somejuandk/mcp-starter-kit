@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.*
+.git
+trafik.log
+data
+test
+tools
+*.md

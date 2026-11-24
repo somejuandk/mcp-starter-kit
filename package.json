@@ -1,0 +1,26 @@
+{
+  "name": "mcp-starter-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter kit til din egen MCP-server (stdio), bygget sammen med en kodeagent",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "npm run build && node test/smoke.mjs",
+    "trafik": "node tools/vis-trafik.mjs"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0",
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  },
+  "license": "MIT"
+}

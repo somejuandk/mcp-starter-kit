@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "starter-kit": {
+      "command": "node",
+      "args": ["tools/aflyt.mjs"]
+    }
+  }
+}
