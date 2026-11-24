@@ -65,7 +65,7 @@ Mangler du en idé, så se hvad andre har bygget til deres egen hverdag: [handle
 
 ## Til kodeagenten
 
-Har du fået adressen til dette repo og besked på at sætte det op, så gør sådan her:
+Har du fået url'en til dette repo og besked på at sætte det op, så gør sådan her:
 
 1. Spørg, hvor kittet skal ligge. Foreslå `~/mcp-starter-kit`. Hent det med `git clone https://github.com/somejuandk/mcp-starter-kit.git`.
 2. Læs `AGENTS.md` i mappen, og følg afsnittet "Når personen beder dig sætte kittet op".
@@ -75,6 +75,7 @@ Personen er typisk ikke udvikler. Forklar hvad du gør i almindeligt sprog, vis 
 
 ## Mere
 
+- [Guiden bag kittet](https://somejuan.dk/blog/mcp-server-guide/): hvad en MCP-server er, hvorfor nogle er en url og andre et GitHub-repo, og hvad der sker, når du trykker connect.
 - [`TEKNIK.md`](TEKNIK.md): trafikken forklaret, Docker, fejlfinding, filerne, versioner og hvad der er testet.
 - [`AGENTS.md`](AGENTS.md): reglerne din kodeagent følger.
 - [`BRIEF.md`](BRIEF.md) og [`TJEKLISTE.md`](TJEKLISTE.md): din brief og din kontrol.
