@@ -8,18 +8,20 @@ Forklar undervejs hvad du gør, i almindeligt sprog. Personen skal kunne forstå
 
 Personen skal ikke selv rette i opsætningsfiler. Det gør du.
 
-1. Kør `npm install` og `npm test`. Fortæl kort hvad der skete.
-2. **Claude Code:** serveren står allerede i `.mcp.json` i projektmappen. Sig til personen at Claude Code skal lukkes og åbnes igen i samme mappe, og at de skal sige ja, når den spørger om serveren `starter-kit`.
-3. **Andre klienter** (Claude Desktop, Cursor, Codex): find klientens opsætningsfil, og tilføj serveren med fulde stier til både `node` (`which node`) og `tools/aflyt.mjs`. Vis ændringen og få et ja, før du gemmer. Rør ikke de servere der står i filen i forvejen, og vis aldrig deres nøgler i chatten. Sig hvordan klienten genstartes.
-4. Giv personen et spørgsmål at prøve, og sig at `npm run trafik` viser hvad der blev sagt.
+1. **Er kittet ikke hentet endnu?** Spørg hvor det skal ligge, foreslå `~/mcp-starter-kit`, og hent det med `git clone https://github.com/somejuandk/mcp-starter-kit.git`. Har personen ikke git, så hent ZIP-filen fra GitHub og pak den ud.
+2. **Tjek Node** med `node -v`. Kittet kræver 20.12 eller nyere. Mangler den, så forklar hvordan den hentes fra nodejs.org, og installér ikke noget på maskinen uden et ja.
+3. Kør `npm install` og `npm test` i mappen. Fortæl kort hvad der skete.
+4. **Claude Code:** serveren står allerede i `.mcp.json` i projektmappen. Den bliver kun læst, når Claude Code er åbnet i kittets mappe. Sig til personen at åbne Claude Code i den mappe og sige ja, når den spørger om serveren `starter-kit`. Skal de vælge mappen i et vindue, kan de trykke Cmd+Shift+G på en Mac og indsætte stien.
+5. **Andre klienter** (Claude Desktop, Cursor, Codex): find klientens opsætningsfil, og tilføj serveren med fulde stier til både `node` (`which node`) og `tools/aflyt.mjs`. Vis ændringen og få et ja, før du gemmer. Tag en sikkerhedskopi af filen først. Rør ikke de servere der står i filen i forvejen, og vis aldrig deres nøgler i chatten. Sig hvordan klienten genstartes, og at en genstart kan lukke den samtale, I er i.
+6. Giv personen et spørgsmål at prøve. Vis bagefter trafikken med `npm run trafik`, og forklar de fire trin: forbind, liste, valg og kald.
 
-Skal serveren køre i Docker, så byg imaget og skift kommandoen i `.mcp.json` (eller klientens fil) til `docker run -i --rm ...` som i README. Brug fulde stier i `-v`, hvis klienten ikke starter serveren fra projektmappen.
+Skal serveren køre i Docker, så byg imaget og skift kommandoen i `.mcp.json` (eller klientens fil) til `docker run -i --rm ...` som i `TEKNIK.md`. Brug fulde stier i `-v`, hvis klienten ikke starter serveren fra projektmappen.
 
 Når du har bygget personens egen server, skal `.mcp.json` have serverens nye navn.
 
 ## Før du skriver kode
 
-1. **Læs `BRIEF.md`.** Er et felt tomt eller uklart, så spørg. Gæt ikke.
+1. **Læs `BRIEF.md`.** Er et felt tomt eller uklart, så spørg. Gæt ikke. Beder personen om hjælp til briefen, så stil spørgsmålene ét ad gangen i almindeligt sprog, og skriv svarene ind i filen. Skriv aldrig en nøgle i den.
 2. **Læs API'ets dokumentation.** Find de endpoints der kan svare på spørgsmålene i briefen, hvilken login de kræver, og hvilke grænser der er.
 3. **Kald API'et én gang og se på det rigtige svar.** Antag aldrig feltnavne. Kræver det en nøgle, så bed personen kopiere `.env.example` til `.env` og lægge den der. Bed aldrig om at få nøglen skrevet i chatten.
 4. **Skriv kort hvad du fandt:** hvad API'et kan, hvad det ikke kan, og hvilke tools du foreslår. Vent på et ja, før du bygger.
@@ -46,18 +48,19 @@ Når du har bygget personens egen server, skal `.mcp.json` have serverens nye na
 | `tools/vis-trafik.mjs` | Viser `trafik.log` læsbart (`npm run trafik`). |
 | `Dockerfile` | Pakker serveren, så den kun ser det den får lov til. |
 | `.mcp.json` | Fortæller Claude Code hvilken server der hører til projektet. |
+| `TEKNIK.md` | Opslagsværk: trafikken forklaret, Docker, klienter i hånden, fejlfinding, versioner. |
 
 Hold forretningslogikken i rene funktioner uden MCP, som `laesForbrug` i eksemplet. Så kan den testes uden en AI.
 
 ### Indstillinger og `.env`
 
 - `src/index.ts` indlæser `.env` fra projektmappen ved opstart. Læs indstillinger med `process.env` inde i `src/server.ts`.
-- I Docker findes `.env` ikke i imaget, og sådan skal det være. Indstillingerne gives ved kørsel med `--env-file .env`. Skriv det i README, når serveren får indstillinger.
+- I Docker findes `.env` ikke i imaget, og sådan skal det være. Indstillingerne gives ved kørsel med `--env-file .env`. Skriv det i `TEKNIK.md`, når serveren får indstillinger.
 - I testen skal du give variabler videre med `env` i `StdioClientTransport`. De arves ikke af sig selv.
 
 ### Ryd eksemplet væk
 
-Når du skifter eksemplet ud, så fjern det helt: toolet `forbrug_pr_kanal`, resourcen `kolonner`, mappen `data/`, variablen `DATA_MAPPE` i `Dockerfile` og `.env.example`, og `-v`-delen i Docker-kommandoen i README. Giv serveren et navn der passer, i `package.json`, i `new McpServer(...)`, i Docker-imagets navn og i README.
+Når du skifter eksemplet ud, så fjern det helt: toolet `forbrug_pr_kanal`, resourcen `kolonner`, mappen `data/`, variablen `DATA_MAPPE` i `Dockerfile` og `.env.example`, og `-v`-delen i Docker-kommandoen i `TEKNIK.md`. Giv serveren et navn der passer, i `package.json`, i `new McpServer(...)`, i Docker-imagets navn og i README.
 
 ## Fakta om SDK'et
 
@@ -95,7 +98,7 @@ Er du i tvivl om SDK'et, så læs typerne i `node_modules/@modelcontextprotocol/
 
 1. `npm test` er grøn, og testen dækker de nye tools, også et kald med ugyldigt input. Testen må ikke gå på nettet. Gem et rigtigt svar fra API'et som en fil i `test/fixtures/`, fjern persondata og nøgler fra den, og lad testen læse den.
 2. Du har kørt serveren gennem `tools/aflyt.mjs`, kaldt hvert tool og vist personen `npm run trafik`.
-3. `.env.example`, `README.md` og `Dockerfile` passer til den nye server, og eksemplet er ryddet væk. Skal serveren på nettet, så fjern `--network none` fra Docker-kommandoen i README og sig det til personen.
+3. `.env.example`, `README.md`, `TEKNIK.md` og `Dockerfile` passer til den nye server, og eksemplet er ryddet væk. Skal serveren på nettet, så fjern `--network none` fra Docker-kommandoen i `TEKNIK.md` og sig det til personen.
 4. Du har gennemgået `TJEKLISTE.md` punkt for punkt og skrevet for hvert punkt om det er opfyldt, og hvordan du ved det. Skriv også det der ikke er opfyldt eller ikke er testet.
 
 ## Det skal du lade være
